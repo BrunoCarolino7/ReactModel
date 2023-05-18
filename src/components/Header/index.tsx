@@ -1,6 +1,6 @@
 import logo from '../../assets/logo.svg';
 import { Container, Wrapper } from './styles';
-import './styles.ts';
+import './styles';
 
 interface HeaderProps {
     x: () => void;

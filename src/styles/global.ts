@@ -74,17 +74,23 @@ export const GlobalStyle = createGlobalStyle`
       position: relative; //se a box não tiver com relative, os próximos conteúdos não ficará dentro dele
     }
 
-    .react-modal-button {
-        position: absolute;
-        right:44rem;
-        border: 0;
-        background: transparent;
-        transition: 300ms;
-    }
-
     .react-modal-button:hover {
         filter: brightness(0.6);
         transition: 300ms;
+    }
+    
+    .react-modal-close {
+        position: absolute;
+        right:1.5rem;
+        top: 1.5rem;
+        border: 0;
+        background: transparent;
+        transition: 300ms;
+        
+        &:hover{
+            filter: brightness(0.5);
+        }   
+
     }
 
 `
