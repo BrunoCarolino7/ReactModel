@@ -1,7 +1,7 @@
 import { Container } from "./styles";
-import icon from '../../assets/Entradas.svg';
-import iconSaida from '../../assets/Saídas.svg';
-import crifrao from '../../assets/Total.svg';
+import Entradas from '../../assets/Entradas.svg';
+import Saídas from '../../assets/Saídas.svg';
+import total from '../../assets/total.svg';
 
 export function Summary() {
     return (
@@ -11,7 +11,7 @@ export function Summary() {
                 <div className="box1">
                     <div className="box-items">
                         <small>Entradas</small>
-                        <img src={icon} alt="entradas" />
+                        <img src={Entradas} alt="entradas" />
                     </div>
                     <strong>R$ 17.400,00</strong>
                 </div>
@@ -19,7 +19,7 @@ export function Summary() {
                 <div className="box2">
                     <div className="box-items">
                         <small>Saídas</small>
-                        <img src={iconSaida} alt="saídas" />
+                        <img src={Saídas} alt="saídas" />
                     </div>
                     <strong>R$ 12.278,17</strong>
                 </div>
@@ -27,7 +27,7 @@ export function Summary() {
                 <div className="box3">
                     <div className="box-items">
                         <small>Total</small>
-                        <img src={crifrao} alt="total" />
+                        <img src={total} alt="total" />
                     </div>
                     <strong>R$ 1.522,33</strong>
                 </div>

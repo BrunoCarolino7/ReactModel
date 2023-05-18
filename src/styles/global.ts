@@ -57,7 +57,7 @@ export const GlobalStyle = createGlobalStyle`
         display: flex;
         align-items: center;
         justify-content: center;
-        position: fixed;
+        position: fixed; // por mais que o scroll é usado, ele sempre fica no meio da tela 
         top: 0;
         left: 0;
         right: 0;
@@ -69,8 +69,9 @@ export const GlobalStyle = createGlobalStyle`
       width: 100%;
       max-width: 576px;
       background: var(--background);
-      padding: 2rem; 
-      border-radius: 0.5rem;     
+      padding: 3rem; 
+      border-radius: 0.25rem;     
+      position: relative; //se a box não tiver com relative, os próximos conteúdos não ficará dentro dele
     }
 
     .react-modal-button {
