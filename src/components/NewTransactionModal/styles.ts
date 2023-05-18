@@ -45,5 +45,21 @@ export const Container = styled.form`
             filter: brightness(0.9);
         }
     }
+`
+export const TransactionTypeContainer = styled.div`
 
+    display:flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    
+    button{
+        padding: 0.5rem;
+        width: 49%;      
+        border: 0.5 solid;
+    }
+
+    span{
+        display: inline-block;
+        align-items: center;       
+    }
 `
