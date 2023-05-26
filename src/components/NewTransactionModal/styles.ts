@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { transparentize } from "polished";
 
 export const Container = styled.form`
 
@@ -26,32 +27,13 @@ export const Container = styled.form`
             margin-top: 1rem;
         }       
     }
-
-    button[type="submit"]{//Botão do tipo submit
-        width: 100%;
-        padding: 0 1.5rem;
-        color: #fff;
-        height: 4rem;
-        background: var(--green);
-        border-radius: 0.25rem;
-        border: none;
-        font-size: 1rem;
-        margin-top: 1.5rem;
-        transition: 300ms;
-        font-weight: 600;
-
-        &:hover{
-            cursor: pointer;
-            filter: brightness(0.9);
-        }
-    }
 `
 export const TransactionTypeContainer = styled.div`
 
     display:flex;
     justify-content: space-between;
-    margin: 10px 0;
-    
+    margin: 10px 0;    
+
     button{
         padding: 0.5rem;
         width: 49%;      
@@ -61,5 +43,51 @@ export const TransactionTypeContainer = styled.div`
     span{
         display: inline-block;
         align-items: center;       
+    }
+`
+interface RadioBoxprops {
+    isActive: boolean;
+    activeColor: 'green' | 'red';
+}
+
+export const RadioBox = styled.button<RadioBoxprops>`
+
+    width: 100%;
+    padding: 0 1.5rem;
+    height: 4rem;    
+
+    background: ${(props) => props.isActive
+        ? transparentize(0.9, props.activeColor)
+        : 'transparent'
+    };
+
+    border-radius: 0.25rem;
+    border: 1px solid #d7d7d7;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    transition: 300ms;
+    font-weight: 600;
+
+    &:hover{
+        cursor: pointer;
+        filter: brightness(0.9);
+    }
+`
+export const Botao = styled.button`
+
+    /* button[type="submit"]{//Botão do tipo submit   
+        color: #000000;
+    } */
+
+    color: #fff;
+    background: var(--green);
+    border: none;
+    width: 100%;
+    height: 3rem;
+    margin-top: 1rem;
+    transition: 300ms;
+
+    &:hover{
+        filter: brightness(0.9);
     }
 `

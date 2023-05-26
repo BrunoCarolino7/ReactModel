@@ -1,12 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../Services/api";
 import { Container, Th } from "./styles";
 
+interface TransactionsProp {
+    id: number;
+    title: string;
+    amount: number;
+    category: string;
+    createdAt: string;
+    type: string;
+}
+
 export function TransactionsTable() {
+
+    const [transactions, setTransactions] = useState<TransactionsProp[]>([]);
+
     useEffect(() => {
-        api.get('/transactions')
-            .then(response => console.log(response.data))
-    }, []);
+        api.get('transactions')
+            .then(response => setTransactions(response.data.transactions));
+    }, []) //vamos na rota de transaction, listamos todas as transactions com 'get'
 
     return (
         <Container>
@@ -14,34 +26,72 @@ export function TransactionsTable() {
                 <thead>
                     <tr>
                         <Th>Título</Th>
-                        <Th>Preço</Th>
+                        <Th>Valor</Th>
                         <Th>Categoria</Th>
                         <Th>Data</Th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>Desenvolvimento de site</td>
-                        <td className="valor">R$ 12000,00</td>
-                        <td>Venda</td>
-                        <td>13/07/2010</td>
-                    </tr>
-                    <tr>
-                        <td>Alugel</td>
-                        <td className="saque">R$ -1100,00</td>
-                        <td>Gasto</td>
-                        <td>13/07/2010</td>
-                    </tr>
-                    <tr>
-                        <td>Mercado</td>
-                        <td className="saque">R$ -860,12</td>
-                        <td>Gasto</td>
-                        <td>13/07/2010</td>
-                    </tr>
-                </tbody>
 
+                    {transactions.map(transaction => (
+                        <tr key={transaction.id}>
+                            <td>{transaction.title}</td>
+                            <td className={transaction.type}>{transaction.amount}</td>
+                            <td>{transaction.category}</td>
+                            <td>{transaction.createdAt}</td>
+                        </tr>
+                    ))}
+                </tbody>
             </table>
         </Container>
     )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const [preco, setPreco] = useState('');
+// //uma mutação-lista
+// const [lista, setLista] = useState([]);
+
+// //função que cria o objeto da lista e adiciona à lista
+// function CriaLista() {
+//     const newLista = {
+//         titulo: titulo,
+//         categoria: categoria,
+//         preco: preco,
+//         time: new Date().toLocaleTimeString("pt-BR", {
+//             hour: "2-digit",
+//             minute: "2-digit",
+//             second: "2-digit",
+//         }),
+//     }
+//     setLista((prevState) => [...prevState, newLista]);
+// }
+
+
+
+// <div>
+// <label>Titulo</label>
+// <input type='text' onChange={(x) => setTitulo(x.target.value)} />
+
+// <label>Preço</label>
+// <input type='number' onChange={(x) => setPreco(x.target.value)} />
+
+// <label>Categoria</label>
+// <input type='text' onChange={(x) => setCategoria(x.target.value)} />
+
+// <button type="button" onClick={CriaLista}>Criar</button>
+
+// {/* {lista.map((listas) => <Card key={listas.time} titulo={listas.name} preco={listas.preco} categoria={listas.categoria} />)} */}
+// </div>

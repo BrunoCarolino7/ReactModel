@@ -2,8 +2,18 @@ import { Container } from "./styles";
 import Entradas from '../../assets/Entradas.svg';
 import Saídas from '../../assets/Saídas.svg';
 import total from '../../assets/total.svg';
+// import { useEffect, useState } from "react";
+// import { api } from "../../Services/api";
 
 export function Summary() {
+
+    // const [valores, setValores] = useState([]);
+
+    // useEffect(() => {
+    //     api.get('transactions')
+    //         .then(response => setValores(response.data))
+    // }, [])
+
     return (
         <Container>
             <div className="box">

@@ -1,22 +1,50 @@
-import { createServer } from 'miragejs';
+import { request } from 'http';
+import { createServer, Model } from 'miragejs';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from './App';
 
 createServer({
-  routes() {
-    this.namespace = 'api';
-    this.get('/transactions', () => {
-      return [
+
+  models: {
+    transaction: Model,
+  },
+
+  seeds(server) {
+    server.db.loadData({
+      transactions: [ // nome da tabela em models (nome da tabela + 's')
         {
           id: 1,
-          title: 'Transaction 1',
-          amount: 400,
+          title: 'Freelance de website',
           type: 'deposit',
-          category: 'Food',
-          createdAt: new Date()
+          category: 'Dev',
+          amount: 6000,
+          createdAt: new Date('2020-02-12 06:00:00')
+        },
+        {
+          id: 2,
+          title: 'Aluguel',
+          type: 'withdraw',
+          category: 'Casa',
+          value: 'withdraw',
+          amount: 1100,
+          createdAt: new Date('2020-02-12 09:00:00')
         }
-      ]
+      ],
+    })
+  },
+
+  routes() {
+    this.namespace = 'api';
+
+    this.get('/transactions', () => {
+      return this.schema.all('transaction')
+    })
+
+    this.post('/transactions', (schema, request) => { //em sincronia com newtransactionmodal api.post
+      const data = JSON.parse(request.requestBody)//request são os dados que vem de newtransactionmodal (title, amount etc)
+
+      return schema.create('transaction', data); // esse transaction é do DB do mirage, que está em Models:{}
     })
   }
 })
@@ -29,4 +57,3 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
