@@ -7,6 +7,7 @@ interface HeaderProps {
 }
 
 export function Header({ x }: HeaderProps) {
+
     return (
         <Container>
             <Wrapper>

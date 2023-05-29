@@ -1,4 +1,3 @@
-import { request } from 'http';
 import { createServer, Model } from 'miragejs';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -10,7 +9,7 @@ createServer({
     transaction: Model,
   },
 
-  seeds(server) {
+  seeds(server) { //iniciando o db já com alguns dados de exemplo pro usuario
     server.db.loadData({
       transactions: [ // nome da tabela em models (nome da tabela + 's')
         {

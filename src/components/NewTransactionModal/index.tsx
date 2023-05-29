@@ -1,11 +1,11 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import './styles';
 import Modal from 'react-modal';
 import { Botao, Container, RadioBox, TransactionTypeContainer } from './styles';
 import closeImg from '../../assets/Fechar.svg';
 import entrada from '../../assets/Entradas.svg';
 import saida from '../../assets/Saídas.svg';
-import { api } from '../../Services/api';
+import { TransactionsContext } from '../../TransactionsContext';
 
 interface NewTransactionModalProps {
     x: boolean;
@@ -14,21 +14,23 @@ interface NewTransactionModalProps {
 
 export function NewTransactionModal({ x, onRequestClose }: NewTransactionModalProps) {
 
+    const { createTransaction } = useContext(TransactionsContext);
+
     const [type, setType] = useState('deposit');
     const [title, setTitle] = useState('');
-    const [value, setValue] = useState(0);
+    const [amount, setAmount] = useState(0);
     const [category, setCategory] = useState('');
 
     function handleCreateNewTransaction(event: FormEvent) {
         event.preventDefault();
 
-        const data = ({
+        createTransaction({
             title,
-            value,
             category,
-            type
+            type,
+            amount
         })
-        api.post('/transactions', data) //importando api (inserindo valores dos inputs na rota transactions)
+        //transactions.push(data); Não posso mudar, adicionar um dado no array por conta da imutabilidade no stado
     }
 
     return (
@@ -55,8 +57,8 @@ export function NewTransactionModal({ x, onRequestClose }: NewTransactionModalPr
 
                 <input placeholder='Valor'
                     type='number'
-                    value={value}
-                    onChange={x => setValue(Number(x.target.value))}
+                    value={amount}
+                    onChange={x => setAmount(Number(x.target.value))}
                 />
 
                 <TransactionTypeContainer>
