@@ -17,7 +17,7 @@ type TransactionInput = Omit<TransactionsProp, 'id' | 'createdAt'>;
 
 interface TransactionsData {
     transactions: TransactionsProp[];
-    createTransaction: (transaction: TransactionInput) => void;
+    createTransaction: (transaction: TransactionInput) => Promise<void>;
 }
 
 export const TransactionsContext = createContext<TransactionsData>(
@@ -32,15 +32,24 @@ export function TransactionsProvider({ children }: TransactionsProvider) {
 
     useEffect(() => {
         api.get('transactions')
-            .then(response => setTransactions(response.data.transactions));
+            .then(response => setTransactions(response.data.transaction));
     }, []) //vamos na rota de transaction, listamos todas as transactions com 'get'
 
 
     //preciso ter acesso à essa função no NewTransactionModal, então TransactionsContext não pode ter no 'value' só 'transactions', preciso também passar a
     //função para ter acesso la em NewTransactionModal
-    function createTransaction(transaction: TransactionInput) {
+    async function createTransaction(transactionInput: TransactionInput) {
 
-        api.post('/transactions', transaction) //importando api (inserindo valores dos inputs na rota transactions)
+        const response = await api.post('transactions', {
+            ...transactionInput,
+            createdAt: new Date()
+        }) //importando api (inserindo valores dos inputs na rota transactions)
+        const { transaction } = response.data;
+
+        setTransactions([
+            ...transactions,
+            transaction
+        ])
     }
 
     return (
