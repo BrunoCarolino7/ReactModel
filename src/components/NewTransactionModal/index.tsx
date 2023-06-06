@@ -6,7 +6,6 @@ import closeImg from '../../assets/Fechar.svg';
 import entrada from '../../assets/Entradas.svg';
 import saida from '../../assets/Saídas.svg';
 import { TransactionsContext } from '../../TransactionsContext';
-import Button from 'react-bootstrap/Button';
 
 interface NewTransactionModalProps {
     x: boolean;

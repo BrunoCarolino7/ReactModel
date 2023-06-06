@@ -2,11 +2,17 @@ import styled from "styled-components";
 
 export const Container = styled.header`
 
-background: var(--blue); 
-padding: 2rem 1rem 12rem;
-display: flex;
-align-items: center;
+    background: var(--blue); 
+    padding: 2rem 1rem 12rem;
+    display: flex;
+    align-items: center;
+
+    @media(max-width: 720px){
+        font-size: 87.50%;
+    }
+
 `
+
 export const Wrapper = styled.header`
 
     display: flex;
@@ -32,5 +38,15 @@ export const Wrapper = styled.header`
         transition: 300ms;
         opacity: 0.6;
     }
+    
+    @media (max-width: 970px){
+        //font-size: 93.75%;
+
+        button{
+            background-color: #d5d5d5;
+            width: 5rem;
+            height:7rem;
+        }
+    } 
 
 `

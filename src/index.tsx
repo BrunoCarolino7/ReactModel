@@ -7,6 +7,7 @@ createServer({
 
   models: {
     transaction: Model,
+    user: Model,
   },
 
   seeds(server) { //iniciando o db já com alguns dados de exemplo pro usuario
@@ -30,6 +31,14 @@ createServer({
           createdAt: new Date('2020-02-12 09:00:00')
         }
       ],
+
+      users: [
+        {
+          id: 1,
+          name: 'Jose',
+          idade: 17,
+        }
+      ],
     })
   },
 
@@ -44,6 +53,12 @@ createServer({
       const data = JSON.parse(request.requestBody)//request são os dados que vem de newtransactionmodal (title, amount etc)
 
       return schema.create('transaction', data); // esse transaction é do DB do mirage, que está em Models:{}
+    })
+
+    this.post('/users', (schema, request) => { //em sincronia com newtransactionmodal api.post
+      const data = JSON.parse(request.requestBody)//request são os dados que vem de newtransactionmodal (title, amount etc)
+
+      return schema.create('user', data); // esse transaction é do DB do mirage, que está em Models:{}
     })
   }
 })

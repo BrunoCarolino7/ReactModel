@@ -1,23 +1,11 @@
-import { useEffect, useState } from "react";
-import { api } from "../../Services/api";
+import { useContext } from "react";
+import { TransactionsContext } from "../../TransactionsContext";
 import { Container, Th } from "./styles";
 
-interface TransactionsProps {
-    id: number,
-    title: string;
-    amount: number;
-    type: string;
-    category: string;
-    createdAt: string;
-}
 export function TransactionsTable() {
 
-    const [transactions, setTransactions] = useState<TransactionsProps[]>([]);
-
-    useEffect(() => {
-        api.get('transactions')
-            .then(response => setTransactions(response.data.transactions))
-    }, [])
+    const { users } = useContext(TransactionsContext);
+    const { transactions } = useContext(TransactionsContext);
 
     return (
         <Container>
@@ -33,13 +21,23 @@ export function TransactionsTable() {
 
                 <tbody>
 
-                    {transactions.map(transaction => (
-                        <tr key={transaction.id}>
+                    {transactions.map(user => (
+                        <tr key={user.id}>
 
-                            <td>{transaction.title}</td>
-                            <td className={transaction.type}>{transaction.amount}</td>
-                            <td>{transaction.category}</td>
-                            <td>{transaction.createdAt}</td>
+                            <td>{user.title}</td>
+                            <td>{user.amount}</td>
+                            <td>{user.category}</td>
+                            <td>{user.createdAt}</td>
+
+                        </tr>
+                    ))}
+
+                    {users.map(user => (
+                        <tr key={user.id}>
+
+                            <td>{user.name}</td>
+                            <td>{user.idade}</td>
+
                         </tr>
                     ))}
                 </tbody>

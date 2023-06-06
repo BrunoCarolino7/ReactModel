@@ -1,7 +1,12 @@
 import { createContext, useEffect, useState, ReactNode } from "react";
 import { api } from "./Services/api";
 
-//Tipagem
+
+interface Model {
+    id: number;
+    name: string;
+    idade: number;
+}
 interface TransactionsProp {
     id: number;
     title: string;
@@ -13,10 +18,15 @@ interface TransactionsProp {
 interface TransactionsProvider {
     children: ReactNode; //sempre vincular o children com ReactNode
 }
+
 type TransactionInput = Omit<TransactionsProp, 'id' | 'createdAt'>;
 
+type ModelInput = Omit<Model, 'id'>;
+
 interface TransactionsData {
+    users: Model[];
     transactions: TransactionsProp[];
+    createUser: (user: ModelInput) => Promise<void>;
     createTransaction: (transaction: TransactionInput) => Promise<void>;
 }
 
@@ -30,30 +40,40 @@ export function TransactionsProvider({ children }: TransactionsProvider) {
     //dados da rota
     const [transactions, setTransactions] = useState<TransactionsProp[]>([]);
 
+    const [users, setUser] = useState<Model[]>([]);
+
     useEffect(() => {
-        api.get('transactions')
-            .then(response => setTransactions(response.data.transaction));
-    }, []) //vamos na rota de transaction, listamos todas as transactions com 'get'
+        api.get('/transactions')
+            .then(response => setTransactions(response.data.transactions));
+    }, [])
 
+    useEffect(() => {
+        api.get('/users')
+            .then(response => setUser(response.data.users));
+    }, [])
 
-    //preciso ter acesso à essa função no NewTransactionModal, então TransactionsContext não pode ter no 'value' só 'transactions', preciso também passar a
-    //função para ter acesso la em NewTransactionModal
+    async function createUser(userModel: ModelInput) {
+        const response = await api.post('/users', {
+            userModel
+        })
+        const { transactions } = response.data;
+
+        setUser([...users, transactions])
+    }
+
     async function createTransaction(transactionInput: TransactionInput) {
 
-        const response = await api.post('transactions', {
+        const response = await api.post('/transactions', {
             ...transactionInput,
             createdAt: new Date()
         }) //importando api (inserindo valores dos inputs na rota transactions)
         const { transaction } = response.data;
 
-        setTransactions([
-            ...transactions,
-            transaction
-        ])
+        setTransactions([...transactions, transaction])
     }
 
     return (
-        <TransactionsContext.Provider value={{ transactions, createTransaction }}>
+        <TransactionsContext.Provider value={{ users, transactions, createTransaction, createUser }}>
             {children}
         </TransactionsContext.Provider>
     )

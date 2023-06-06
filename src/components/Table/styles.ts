@@ -17,11 +17,11 @@ export const Container = styled.div`
                 font-weight: bold;
             }
 
-            &.valor{
+            &.deposit{
                 color: var(--green);
             }
 
-            &.saque{
+            &.withdraw{
                 color: red;
             }
         }      
