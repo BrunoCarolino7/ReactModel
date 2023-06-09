@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Dashboard } from "./components/Dashboard";
-import { Footer } from './components/Footer';
 import { Header } from "./components/Header";
 import { NewTransactionModal } from './components/NewTransactionModal';
 import { GlobalStyle } from "./styles/global";
-import { TransactionsProvider } from './TransactionsContext';
+import { TransactionsProvider } from './hooks/TransactionsContext';
 
 export function App() {
 
@@ -22,9 +21,7 @@ export function App() {
     <TransactionsProvider>
       <Header x={openNewTransactionModal} />
       <Dashboard />
-
       <NewTransactionModal x={newTransactionModal} onRequestClose={closeNewTransactionModal} />
-      <Footer />
       <GlobalStyle />
     </TransactionsProvider>
   );

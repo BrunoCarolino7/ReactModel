@@ -3,7 +3,7 @@ import Entradas from '../../assets/Entradas.svg';
 import Saídas from '../../assets/Saídas.svg';
 import total from '../../assets/total.svg';
 import { useContext } from "react";
-import { TransactionsContext } from "../../TransactionsContext";
+import { TransactionsContext } from "../../hooks/TransactionsContext";
 
 
 export function Summary() {

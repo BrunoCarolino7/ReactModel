@@ -2,10 +2,10 @@ import { FormEvent, useContext, useState } from 'react';
 import './styles';
 import Modal from 'react-modal';
 import { Botao, Container, RadioBox, TransactionTypeContainer } from './styles';
-import closeImg from '../../assets/Fechar.svg';
+import Fechar from '../../assets/Fechar.svg';
 import entrada from '../../assets/Entradas.svg';
 import saida from '../../assets/Saídas.svg';
-import { TransactionsContext } from '../../TransactionsContext';
+import { TransactionsContext } from '../../hooks/TransactionsContext';
 
 interface NewTransactionModalProps {
     x: boolean;
@@ -45,10 +45,12 @@ export function NewTransactionModal({ x, onRequestClose }: NewTransactionModalPr
             isOpen={x}
             onRequestClose={onRequestClose}
             overlayClassName={"react-modal-overlay"}
-            className={"react-modal-content"}>
+            className={"react-modal-content"}
+            ariaHideApp={false}
+        >
 
             <button type='button' onClick={onRequestClose} className='react-modal-close'>
-                <img src={closeImg} alt='Fechar modal' />
+                <img src={Fechar} alt='Fechar modal' />
             </button>
 
             <Container onSubmit={handleCreateNewTransaction} >
